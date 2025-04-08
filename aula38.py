@@ -28,13 +28,19 @@ Caso o contrário:
 O primeiro número do CPF é 7
 '''
 import re # regular expression
+import sys
 
 entrada = input('CPF: ')
 cpf = re.sub(r'[^0-9]','',entrada)
 
-# A função re.sub pode usar o r'' para escolher os itens a serem substituídos,
+# O método re.sub pode usar o r'' para escolher os itens a serem substituídos,
 # seguido de pelo que queremos substituir, seguido da str onde ocorrerá
 # a substituição. O ^ significa que somente os itens não serão substituídos.
+
+digitos_repetidos = cpf == cpf[0] * len(cpf)
+if digitos_repetidos:
+    print('Você digitou o mesmo número')
+    sys.exit() # Esse método fecha o processo.
 
 primeiros_digitos = cpf[:9]
 multiplicador_1 = 10
