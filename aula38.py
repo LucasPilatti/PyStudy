@@ -27,37 +27,39 @@ Caso o contrário:
 
 O primeiro número do CPF é 7
 '''
+import re # regular expression
 
+cpf = re.sub(r'[^0-9]','','746.824.890-70')
 
-cpf = '746.824.890-70'
-primeiros_digitos = cpf.split('-')
-ultimos_digitos = primeiros_digitos.pop()
-primeiros_digitos_str = ''.join(primeiros_digitos)
+# A função re.sub pode usar o r'' para escolher os itens a serem substituídos,
+# seguido de pelo que queremos substituir, seguido da str onde ocorrerá
+# a substituição. O ^ significa que somente os itens não serão substituídos.
 
+primeiros_digitos = cpf[:9]
 multiplicador_1 = 10
+
 total_1 = 0
-for digito in primeiros_digitos_str:
-    if digito.isdigit():
-        total_1 += int(digito) * multiplicador_1
-        multiplicador_1 -= 1
+for digito in primeiros_digitos:
+    total_1 += int(digito) * multiplicador_1
+    multiplicador_1 -= 1
 
 digito_1 = (total_1 * 10) % 11   
 digito_1 = digito_1 if digito_1 <= 9 else 0
 
-# print(primeiro_numero)
+# print(digito_1)
 
-primeiros_digitos_str += str(digito_1)
+primeiros_digitos += str(digito_1)
 multiplicador_2 = 11
 total_2 = 0
 
-for digito in primeiros_digitos_str:
-    if digito.isdigit():
-        total_2 += int(digito) * multiplicador_2
-        multiplicador_2 -= 1
+for digito in primeiros_digitos:
+    total_2 += int(digito) * multiplicador_2
+    multiplicador_2 -= 1
 
 digito_2 = (total_2 * 10) % 11
 digito_2 = digito_2 if digito_2 <= 9 else 0
 
-# print(segundo_numero)
+# print(digito_2)
 
-print('Válido' if ultimos_digitos == str(digito_1) + str(digito_2) else 'Inválido')
+resultado = primeiros_digitos + str(digito_2)
+print('CPF Válido' if resultado == cpf else 'CPF Inválido')
