@@ -29,7 +29,8 @@ O primeiro número do CPF é 7
 '''
 import re # regular expression
 
-cpf = re.sub(r'[^0-9]','','746.824.890-70')
+entrada = input('CPF: ')
+cpf = re.sub(r'[^0-9]','',entrada)
 
 # A função re.sub pode usar o r'' para escolher os itens a serem substituídos,
 # seguido de pelo que queremos substituir, seguido da str onde ocorrerá
